@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="en"
+      layout:decorator="fragments/layout">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="keywords" content="Software, Isp Billing, SMS Notification, Notification Log, Mikrotik manage,
+     Mikrotik Api,PPPOE activation/deactivation Custom SMS, Cisco,Spring, JPA, Bootstrap" >
+    <meta name="Description" content="Well orginized ISP billing software, you can easily configure your routers to mange your clients,
+     can send SMS notification for bill.
+     Finally this software can mange your valuable clinets due">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Client Information</title>
+
+</head>
+<body>
+<div class="right_col" role="main" data-layout-fragment="content">
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+            <div class="panel panel-primary">
+                <!-- Default panel contents -->
+
+                <div class="panel-heading">
+                    Client <a th:href="@{/client/CreateClient/E}" class="btn btn-primary"><span
+                        class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+                </div>
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th>Client Name</th>
+                        <th>Address</th>
+                        <th>Phone Number</th>
+                        <th>PPPOE</th>
+                        <th>Status</th>
+                        <!--<th>Client Type</th>-->
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <div th:if="!${#lists.isEmpty(AllClient)}">
+                        <tr th:each="client : ${AllClient}">
+                            <td th:text="*{client.name}"></td>
+                            <td th:text="*{client.address}"></td>
+                            <td th:text="*{client.phone}"></td>
+                            <td th:text="*{client.ppoe}"></td>
+                            <!--<td th:text="*{client.active}"></td>-->
+                            <td th:text="( *{client.active} ? 'Active' : 'Inactive' )"></td>
+
+                            <td>
+                                <!--<a th:href="@{'/invsetup/invview/' +${invs.invOrganizationId}}" class="btn btn-info"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>-->
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <a th:href="@{'/client/GetClient/U/'+${client.id}}"
+                                       class="btn btn-light"><span
+                                            class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                                    <!--<a th:href="@{'/client/DelClient/'+${client.id}}"-->
+                                       <!--class="btn btn-light"><span-->
+                                            <!--class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>-->
+
+                                </div>
+                            </td>
+
+                        </tr>
+                    </div>
+                    <div th:if="${#lists.isEmpty(AllClient)}">
+                        <tr>
+                            <td>No Client exists!</td>
+                        </tr>
+                    </div>
+
+
+
+                    </tbody>
+                    <!--<div id="find_keyword">-->
+                    <!--<div class="ui-widget" th:each="sorg: ${OrgAcc}">-->
+                    <!--<input type="text" id="tagQuery" th:value="*{sorg.id}"> </input>-->
+                    <!--</div>-->
+                    <!--</div>-->
+
+
+                    <!--<div>-->
+                    <!--<label> Sessions Attribuites </label> <select  >-->
+                    <!--&lt;!&ndash;<option th:value="${manus}" th:text="${manus}"></option>&ndash;&gt;-->
+                    <!--<option th:each="message : ${OrgAcc}" th:text="${message.name}"></option>-->
+                    <!--&lt;!&ndash;<option th:each="message : ${manus}" th:value="${message.id}"&ndash;&gt;-->
+                    <!--&lt;!&ndash;th:text="${message.menuName}"></option>&ndash;&gt;-->
+                    <!--</select>-->
+                    <!--</div>-->
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<script src="../static/js/app.js" th:src="@{/js/app.js}"></script>-->
+
+</body>
+</html>

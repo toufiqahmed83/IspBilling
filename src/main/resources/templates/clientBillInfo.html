@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="en"
+      layout:decorator="fragments/layout">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="keywords" content="Software, Isp Billing, SMS Notification, Notification Log, Mikrotik manage,
+     Mikrotik Api,PPPOE activation/deactivation Custom SMS, Cisco,Spring, JPA, Bootstrap" >
+    <meta name="Description" content="Well orginized ISP billing software, you can easily configure your routers to mange your clients,
+     can send SMS notification for bill.
+     Finally this software can mange your valuable clinets due">
+    <title>Bill Information</title>
+
+    <link th:href="@{/css/easyAutocomplete/easy-autocomplete.min.css}" rel="stylesheet"/>
+
+    <script th:src="@{/js/easyAutocomplete/autocomplete.js}"></script>
+    <script th:src="@{/js/easyAutocomplete/jquery.easy-autocomplete.min.js}"></script>
+    <script>
+
+        function selectedobj(value, ind) {
+            if (ind == 'invOrg') {
+                //alert('m');
+
+                invOrgObj(value);
+            }
+            else if (ind == 'priceListHeader') {
+                //alert('O');
+                priceListObj(value);
+                // alert('O'+value);
+            } else if (ind == 'Modal') {
+                SearchObj(value);
+            }
+
+        }
+        ;
+
+
+    </script>
+
+
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Menu List</title>
+
+</head>
+<body>
+<div class="right_col" role="main" data-layout-fragment="content">
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+            <div class="panel panel-primary">
+                <!-- Default panel contents -->
+                <span style="color: #ed1c24;font-weight: bold" th:text="${msg}"></span>
+
+                <div class="panel-heading">
+                    <a data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'"><span
+                            class="glyphicon glyphicon-search"></span></a>
+                    <!--Client <a th:href="@{/clent/CreateClient/E}" class="btn btn-primary"><span-->
+                    <!--class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>-->
+                </div>
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th>Client Name</th>
+                        <th>Address</th>
+                        <th>Phone Number</th>
+                        <th>Bill Date</th>
+                        <th>Amount</th>
+                        <th>Bill Status</th>
+                        <th>SMS Status</th>
+                        <!--<th>Client Type</th>-->
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <div th:if="!${#lists.isEmpty(clientBills)}">
+                        <tr th:each="cb : ${clientBills}">
+                            <td th:text="*{cb.clientName}"></td>
+                            <td th:text="*{cb.clientInfo.address}"></td>
+                            <td th:text="*{cb.phone}"></td>
+                            <td th:text="*{cb.billDate}"></td>
+                            <td th:text="*{cb.amount}"></td>
+                            <!--<td th:text="*{cb.billStatus}"></td>-->
+                            <td th:text="( *{cb.billStatus} ? 'Paid' : 'Not Paid' )"></td>
+                            <td th:text="( *{cb.smsStatus} ? 'Sent' : 'Not Yet' )"></td>
+                            <!--<td th:text="*{cb.smsStatus}"></td>-->
+                            <!--<td th:text="*{client.type}"></td>-->
+                            <td>
+                                <!--<a th:href="@{'/invsetup/invview/' +${invs.invOrganizationId}}" class="btn btn-info"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>-->
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <a th:href="@{'/ClientBill/updateBillStatus/'+${page}+'/'+${cb.id}}"
+                                       title="Change Bill Status" class="btn btn-light">
+                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                                    <!--<a th:href="@{'/clent/DelClient/'+${client.id}}"-->
+                                    <!--class="btn btn-light"><span-->
+                                    <!--class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>-->
+
+                                </div>
+                            </td>
+
+                        </tr>
+                    </div>
+                    <div th:if="${#lists.isEmpty(clientBills)}">
+                        <tr>
+                            <td>No Client exists!</td>
+                        </tr>
+                    </div>
+
+                    <div class="modal modal-warning fade in" th:id="modal-warning">
+
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span></button>
+                                    <h5 class="modal-title">Search</h5>
+
+                                    <div class="modal-body">
+                                        <form th:action="@{'/ClientBill/Search'}"
+                                              th:object="${Search}" th:method="post">
+                                            <div class="form-group col-sm-12">
+                                                <label class="col-sm-3 control-label " for="nameId">Name</label>
+                                                <input type="hidden" id="hId"
+                                                       name="hId" th:field="*{id}" class="form-control"/>
+
+                                                <div class="col-sm-1 "><b>:</b></div>
+                                                <div class="col-sm-8 ">
+
+                                                    <input type="text" id="nameId" placeholder="Name"
+                                                           name="name" th:field="*{name}" class="form-control"/>
+
+                                                    <p th:errors="*{name}" class="help-block"></p>
+                                                </div>
+                                                <script th:inline="javascript">
+                                                    function SearchObj(objparms) {
+                                                        var objparmV = objparms;
+                                                        $('#hId').val(objparmV.id).trigger("change");
+                                                        $('#inputphone').val(objparmV.phone).trigger("change");
+                                                        $('#inputppoe').val(objparmV.ppoe).trigger("change");
+                                                        $('#inputbillCycleDate').val(objparmV.billCycleDate).trigger("change");
+                                                    }
+                                                    ;
+                                                    document.getElementById('nameId').oninput = function () {
+                                                        myFunctionModal()
+                                                    };
+
+                                                    function myFunctionModal() {
+
+
+                                                        var innerVarModal = document.getElementById('nameId').value;
+
+                                                        if (innerVarModal.length == 2) {
+
+                                                            callAutoComModal(innerVarModal)
+                                                            document.getElementById('nameId').focus();
+                                                        }
+
+                                                    }
+
+                                                    function callAutoComModal(itmModal) {
+
+                                                        var displayfieldModal = [['#nameId']];
+//                                                        var tmpltModal = [[${temltId}]];
+//                                                        alert(displayfieldModal);
+//                                                        var modalGrpid = document.getElementById('inputgroupId').value;
+                                                        var getvalue = 'name';
+                                                        var getDescModal = 'address';
+                                                        var indcModal = 'Modal';
+                                                        var urlvalModal = '/ISPB/ACRC/getClient/' + itmModal;
+//                                                        alert(urlvalModal);
+                                                        autocomwithobject(urlvalModal, getvalue, displayfieldModal, null, getDescModal, indcModal);
+                                                    }
+
+                                                </script>
+
+                                            </div>
+
+                                            <div class="form-group col-sm-12">
+
+                                                <label class="col-sm-3 control-label " for="inputphone">Phone</label>
+
+                                                <div class="col-sm-1 ">
+                                                    <b>:</b>
+                                                </div>
+                                                <div class="col-sm-8 ">
+                                                    <input class="form-control" type="text" id="inputphone"
+                                                           placeholder="phone" th:field="*{phone}" name="phone"/>
+                                <span class="help-block" th:if="${#fields.hasErrors('phone')}"
+                                      th:errors="*{phone}">Name Error</span>
+                                                </div>
+                                            </div>
+                                                <div class="form-group col-sm-12">
+                                                    <label class="col-sm-3 control-label " for="inputphone">PPPOE</label>
+
+                                                    <div class="col-sm-1 ">
+                                                        <b>:</b>
+                                                    </div>
+
+                                                <div class="col-sm-8 ">
+                                                    <input class="form-control" placeholder="PPO" type="text"
+                                                           id="inputppoe" th:field="*{ppoe}" name="ppoe"/>
+                                                    <span class="help-block" th:if="${#fields.hasErrors('ppoe')}"
+                                                          th:errors="*{ppoe}">Description Error</span>
+                                                </div>
+                                            </div>
+
+
+                                                <div class="form-group col-sm-12">
+                                                    <label class="col-sm-3 control-label " for="inputphone">Bill Cycle Date</label>
+
+                                                    <div class="col-sm-1 ">
+                                                        <b>:</b>
+                                                    </div>
+
+                                                <div class="col-sm-8 ">
+                                                    <input class="form-control" placeholder="Bill Cycle Date" type="text"
+                                                           id="inputbillCycleDate" th:field="*{billCycleDate}" name="billCycleDate"/>
+                                                    <span class="help-block" th:if="${#fields.hasErrors('billCycleDate')}"
+                                                          th:errors="*{billCycleDate}">Description Error</span>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group required col-sm-12">
+                                                <label class="col-sm-3 control-label " for="inputDate">Date</label>
+
+                                                <div class="col-sm-1 ">
+                                                    <b>:</b>
+                                                </div>
+                                                <div class="col-sm-4  ">
+                                                    <input class="form-control" type="date" value="01-01-2019"
+                                                           id="inputfromDate" th:field="*{{fromDate}}"/>
+                                <span class="help-block" th:if="${#fields.hasErrors('fromDate')}"
+                                      th:errors="*{fromDate}">Status Error</span>
+                                                </div>
+
+                                                <div class="col-sm-4  ">
+                                                    <input class="form-control" type="date" value="01-01-2019"
+                                                           id="inputtoDate"
+                                                           th:field="*{{toDate}}"/>
+                                    <span class="help-block" th:if="${#fields.hasErrors('toDate')}"
+                                          th:errors="*{toDate}">Status Error</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group required col-sm-12">
+                                                <label class="col-sm-3 control-label " for="inputStatus">Status</label>
+
+                                                <div class="col-sm-1 ">
+                                                    <b>:</b>
+                                                </div>
+                                                <div class="col-sm-4 ">
+                                                    <select class="form-control" type="text" id="inputsmsStatus"
+                                                            th:field="*{smsStatus}" name="smsStatus">
+                                                        <option value="">SMS Status</option>
+                                                        <option value="1">True</option>
+                                                        <option value="0">False</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-4 ">
+                                                    <select class="form-control" type="text" id="inputbillStatus"
+                                                            th:field="*{billStatus}" name="billStatus">
+                                                        <option value="">Bill Status</option>
+                                                        <option value="1">True</option>
+                                                        <option value="0">False</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="btn_padd" align="right">
+                                                <button type="submit" name="search"
+                                                        class="btn btn-primary" align="right">
+                                                    Search
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--<script src="../static/js/app.js" th:src="@{/js/app.js}"></script>-->
+
+</body>
+</html>

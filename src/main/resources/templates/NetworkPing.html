@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="en"
+      layout:decorator="fragments/layout">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="keywords" content="Software, Isp Billing, SMS Notification, Notification Log, Mikrotik manage,
+     Mikrotik Api,PPPOE activation/deactivation Custom SMS, Cisco,Spring, JPA, Bootstrap" >
+    <meta name="Description" content="Well orginized ISP billing software, you can easily configure your routers to mange your clients,
+     can send SMS notification for bill.
+     Finally this software can mange your valuable clinets due">
+    <title>Ping your Gateway</title>
+
+    <link th:href="@{/css/easyAutocomplete/easy-autocomplete.min.css}" rel="stylesheet"/>
+
+    <script th:src="@{/js/easyAutocomplete/autocomplete.js}"></script>
+    <script th:src="@{/js/easyAutocomplete/jquery.easy-autocomplete.min.js}"></script>
+    <script>
+
+        function selectedobj (value,ind)
+        {
+            if(ind=='codecombination')
+            {
+                //alert('m');
+
+                sourcedobj (value);
+            }
+            else if (ind=='source')
+            {
+                //alert('O');
+                sourcedobjSource (value);
+               // alert('O'+value);
+            }
+
+
+
+        };
+
+
+
+    </script>
+
+</head>
+<body>
+<div class="right_col" role="main" data-layout-fragment="content">
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-2">
+            <!--<div class="container">-->
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Test your device connectivity
+                </div>
+
+                <div class="panel-body">
+                    <form>
+                        <!--th:action="@{'/Interface/Ping/'}"-->
+                          <!--th:object="${pingModel}" th:method="post" >-->
+
+                        <span style="color: #ed1c24;font-weight: bold" th:each="m :${msg}"><p th:text="${m.tag+' '+m.msg}"></p></span>
+                        <div class="form-group col-sm-12">
+
+                            <label class="col-sm-3 control-label " for="inputtype">Interface</label>
+
+                            <div class="col-sm-1 ">
+                                <b>:</b>
+                            </div>
+                            <div class="col-sm-8 ">
+                                <select class="form-control" id="inputinterfaceHeader"
+                                        th:field="${interfaces}" name="interfaceHeader">
+                                    <option value="">Select Interface</option>
+                                    <option th:each="i : ${interfaces}"
+                                            th:text="${i.name}"
+                                            th:value="${i.id}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group required col-sm-12">
+
+                            <label class="col-sm-3 control-label " for="inputipAddress">Interface IP</label>
+
+                            <div class="col-sm-1 ">
+                                <b>:</b>
+                            </div>
+
+                            <div class="col-sm-8 ">
+                                <input class="form-control" required="required" type="text" id="inputipAddress"
+                                        name="ip" placeholder="10.0.2.15"/>
+
+                            </div>
+
+                        </div>
+
+                        <div th:id="btnId"  class="form-group  col-sm-12 text-right Padding10px">
+                            <a class="btn btn-default">Ping</a>
+                            <!--<button type="submit" name="add" class="btn btn-primary" >Save</button>-->
+
+                        </div>
+
+                        <div id="replace_div">
+                            <script th:inline="javascript">
+                                document.getElementById([['btnId']]).onclick =
+                                        function(){
+                                            var errnum=0;
+                                            var intr=document.getElementById('inputinterfaceHeader').value;
+                                            var ip=document.getElementById('inputipAddress').value;
+                                            if (intr==null ||intr=="" )
+                                            {errnum=errnum+1;
+                                                alert ("No Interface is Selected!!");
+                                            }else if(ip==null||ip=="")
+                                            {errnum=errnum+1;
+                                                alert("Please enter a ip address to ping");
+                                            }
+
+                                            l_urlVal='/ISPB/Interface/Ping/'+intr+'/'+ ip;
+                                            var mainLoc= window.location.origin;
+
+//                                            CallAjax(intr);
+                                            if (errnum==0)
+                                            {
+
+                                                calls(l_urlVal);
+                                            }
+
+//                                                alert(i);
+
+                                        };
+
+//                                function CallAjax(xx) {
+//                                    alert("in");
+//                                    $.ajax({
+//                                        url : '/ISPB/ACRC/getInterfaceActivity/',
+//                                        data: {id: xx},
+//                                        success : function(data) {
+//                                            alert(data);
+//                                        },        error: function(){
+//                                            alert(url);
+//                                        }
+//                                    });
+//                                    alert("out");
+//                                }
+
+                                function calls (urla)
+                                {var i=0;
+                                    setInterval(function() {
+                                    i=i+1;
+                                        if (i<4)
+                                        {final(urla,i);}}, 2000);
+                                };
+
+                                function final(xurl,a)
+                                {
+
+//                                    alert("x"+a);
+//                                    alert(i);
+                                    var url=window.location.origin+xurl+'/'+a;
+                                    $('#replace_div').load(url);
+                                };
+
+
+                            </script>
+                        </div>
+
+                    </form>
+
+                </div>
+                <!--<div class="panel-footer">-->
+                <!--</div>-->
+            </div>
+            <!--</div>-->
+        </div>
+    </div>
+</div>
+<!--/*/ <th:block th:include="fragments/js :: body"></th:block> /*/-->
+<script src="../static/js/app.js" th:src="@{/js/app.js}"></script>
+</body>
+</html>

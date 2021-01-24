@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="resultsList" th:fragment="resultsList" class="resultsList">
+    <div class="form-group col-sm-12">
+        <div th:unless="${#lists.isEmpty(intrDb)}">
+            <table class="table table-bordered table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>SL.</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>IP</th>
+                    <th>Status</th>
+                    <th>Bandwidth</th>
+                </tr>
+
+                </thead>
+                <tbody>
+                <tr th:each="p ,iStat : ${intrDb}">
+                    <td th:text="${iStat.count}">Id</td>
+                    <td th:text="${p.name}"></td>
+                    <td th:text="${p.type}"></td>
+                    <td th:text="${p.ipAddress}"></td>
+                    <!--<td th:text="${p.interFaecStatus}"></td>-->
+                    <td th:text="(${p.interFaecStatus} ? 'Online' : 'Offline' )"th:class="${p.interFaecStatus ? 'green' : 'red'}" ></td>
+                    <td th:text="(${p.linkStatus} ? 'Online' : 'Offline' )"th:class="${p.linkStatus ? 'green' : 'red'}" ></td>
+
+                </tr>
+                </tbody>
+
+            </table>
+            <div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div th:if="${#lists.isEmpty(pingResults)}">
+        <!--<span><a th:text="${msg}"></a></span>-->
+        <span style="color: #ed1c24;font-weight: bold" th:text="${msg}"></span>
+
+    </div>
+
+
+</div>
+
+
+
+</div>
+</body>
+</html>

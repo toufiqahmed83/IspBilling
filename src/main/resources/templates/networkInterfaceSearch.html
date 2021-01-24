@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="en"
+      layout:decorator="fragments/layout">
+<head>
+    <link th:href="@{/css/easyAutocomplete/easy-autocomplete.min.css}" rel="stylesheet"/>
+
+    <script th:src="@{/js/easyAutocomplete/autocomplete.js}"></script>
+    <script th:src="@{/js/easyAutocomplete/jquery.easy-autocomplete.min.js}"></script>
+
+</head>
+<body>
+<div class="right_col" role="main" data-layout-fragment="content">
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <!--<div class="container">-->
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">Search</div>
+                <div class="panel-body">
+                    <form th:action="@{'/Interface/search'}"
+                          th:object="${interfaceheader}" th:method="post">
+
+                        <!--<span style="color: #ed1c24;font-weight: bold" th:each="m :${msg}"><p th:text="${m.tag+' '+m.msg}"></p></span>-->
+                        <div class="form-group">
+                            <!--<label for="inputSegment1">Name</label>-->
+                            <input type="hidden" class="form-control" id="inputid" placeholder="id"
+                                   th:field="*{id}" name="id"/>
+                            <span class="help-block" th:if="${#fields.hasErrors('id')}"
+                                  th:errors="*{id}">Name Error</span>
+                        </div>
+
+
+                        <div class="form-group col-sm-12">
+
+                            <label class="col-sm-3 control-label " for="inputtype">Interface Type</label>
+
+                            <div class="col-sm-1 ">
+                                <b>:</b>
+                            </div>
+                            <div class="col-sm-4 ">
+                                <select class="form-control" type="text" id="inputtype"
+                                        th:field="*{type}" name="type"  >
+                                    <option value="">Select Interface Type</option>
+                                    <option th:each="catagories : ${T(com.isp.billing.model.networkConf.InterfaceHeader.InterfaceType).values()}"
+                                            th:text="${catagories}"
+                                            th:value="${catagories}"></option>
+                                </select>
+                                <span class="help-block" th:if="${#fields.hasErrors('type')}"
+                                      th:errors="*{type}">Name Error</span>
+                            </div>
+
+                            <div class="col-sm-4 ">
+                                <input class="form-control" type="Text" id="inputname"
+                                       th:value="*{name}" th:field="*{name}" name="name" placeholder="Name"/>
+                                <span class="help-block" th:if="${#fields.hasErrors('name')}"
+                                      th:errors="*{name}">Status Error</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group required col-sm-12">
+
+                            <label class="col-sm-3 control-label " for="inputipAddress">Interface IP</label>
+
+                            <div class="col-sm-1 ">
+                                <b>:</b>
+                            </div>
+
+                            <div class="col-sm-8 ">
+                                <input class="form-control" type="text" id="inputipAddress"
+                                       th:field="*{ipAddress}" name="ipAddress" value="10.0.2.15"/>
+
+                                <span class="help-block" th:if="${#fields.hasErrors('ipAddress')}"
+                                      th:errors="*{ipAddress}">Category Error</span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group required col-sm-12">
+                            <label class="col-sm-3 control-label " for="inputinterFaceUserName">User Name & Password</label>
+
+                            <div class="col-sm-1 ">
+                                <b>:</b>
+                            </div>
+                            <div class="col-sm-4 ">
+                                <input class="form-control" name="interFaceUserName" id="inputinterFaceUserName" th:field="*{interFaceUserName}" />
+
+
+                                <span class="help-block" th:if="${#fields.hasErrors('interFaceUserName')}"
+                                      th:errors="*{interFaceUserName}">Currency Error</span>
+                            </div>
+
+                            <div class="col-sm-4 ">
+                                <input class="form-control"  name="interFacePass" id="inputinterFacePass" th:field="*{interFacePass}" />
+
+
+                                <span class="help-block" th:if="${#fields.hasErrors('interFacePass')}"
+                                      th:errors="*{interFacePass}">Currency Error</span>
+                            </div>
+
+
+                        </div>
+
+                        <div class="form-group required col-sm-12">
+                            <label class="col-sm-3 control-label " for="inputinterFaecStatus">Status</label>
+
+                            <div class="col-sm-1 ">
+                                <b>:</b>
+                            </div>
+
+                            <div class="col-sm-4  ">
+                                <select class="td form-control " th:type="text"
+                                        th:id="*{interFaecStatus}">
+                                    <option value="1"> Active</option>
+                                    <option value="0"> Inactive</option>
+
+                                </select>
+                                <!--<input class="form-control" type="text" id="inputinterFaecStatus"-->
+                                <!--th:field="*{interFaecStatus}"-->
+                                <!--name="Status" />-->
+
+                                <span class="help-block" th:if="${#fields.hasErrors('interFaecStatus')}"
+                                      th:errors="*{interFaecStatus}">Date Error</span>
+                            </div>
+
+                        </div>
+
+                        <div class="text-right Padding10px" align="right">
+                            <a  th:href="@{/Interface/interface/E/}"
+                                class="btn btn-primary">New</a>
+                            <button type="submit" name="search" class="btn btn-primary">
+                                Find
+                            </button>
+                            <!--<button type="submit" name="go" class="btn btn-primary">New-->
+                            <!--</button>-->
+
+                        </div>
+                        <div>
+
+                        </div>
+                    </form>
+
+
+                    <div class="form-group col-sm-12">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+
+                            <th>Type</th>
+                            <th>Name</th>
+                            <th>IP Add.</th>
+                            <th>User Name</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                            </thead>
+                            <tbody>
+
+                            <div>
+                                <tr th:each="header : ${interfaceHeaders}">
+                                    <td th:text="${header.type}"></td>
+                                    <td th:text="${header.name}"></td>
+                                    <td th:text="${header.ipAddress}"></td>
+                                    <td th:text="${header.interFaceUserName}"></td>
+                                    <td th:text="${header.interFaecStatus}"></td>
+                                    <td>
+                                        <!--<td>-->
+                                        <!--<button type="submit" name="edit" th:value="${header.id}">Edit</button>-->
+                                        <!--</td>-->
+
+                                        <!--th:if="${x.segmenteColumn == T(com.aye.web.model.account.common.GlStatus).N}"-->
+                                        <div class="btn-group" role="group" aria-label="..." name="edit">
+                                            <a th:href="@{/Interface/editInterface/U/}+${header.id}"
+                                               class="btn btn-success"><span
+                                                    class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                                        </div>
+                                        <!--<div class="btn-group" role="group" aria-label="..." name="edit"-->
+                                        <!--th:if="${(header.status == T(com.aye.web.model.account.common.GlStatus).P)}"-->
+                                        <!--onclick="return false">-->
+                                        <!--<a th:href="@{/AccGL/editGlheader/}+ ${pageId}+'/'+${temltId}+'/'+${header.id}"-->
+                                        <!--class="btn disabled"><span-->
+                                        <!--class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>-->
+                                        <!--</div>-->
+
+
+                                    </td>
+
+
+                                </tr>
+                            </div>
+                            <div th:if="${#lists.isEmpty(interfaceHeaders)}">
+                                <tr>
+                                    <td>No Data exists!</td>
+                                </tr>
+                            </div>
+
+                            </tbody>
+
+                        </table>
+                        <div th:if="${interfaceHeaders.totalPages  > 0}" class="pagination"
+                             th:each="pageNumber : ${pageNumbers}">
+                            <a th:href="@{'/Interface/search/'+${pageNumber+1}}"
+                               th:text="${pageNumber}"
+                               th:class="${pageNumber==interfaceHeaders.number + 1} ? active"></a>
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="panel-footer">
+                </div>
+            </div>
+            <!--</div>-->
+        </div>
+    </div>
+</div>
+<!--/*/ <th:block th:include="fragments/js :: body"></th:block> /*/-->
+<script src="../static/js/app.js" th:src="@{/js/app.js}"></script>
+</body>
+</html>

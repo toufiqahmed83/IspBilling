@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="en"
+      layout:decorator="fragments/layout">
+
+<head>
+
+    <link th:href="@{/css/easyAutocomplete/easy-autocomplete.min.css}" rel="stylesheet"/>
+
+    <script th:src="@{/js/easyAutocomplete/autocomplete.js}"></script>
+    <script th:src="@{/js/easyAutocomplete/jquery.easy-autocomplete.min.js}"></script>
+</head>
+<body>
+<div class="right_col" role="main" data-layout-fragment="content">
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <!--<div class="container">-->
+            <div class="panel panel-primary">
+                <!-- Default panel contents -->
+                <div class="panel-heading">Manage Client</div>
+                <div class="panel-body">
+
+
+                    <form id="crtform" action="'/client/CreateClient/'+${mode}}"
+                          th:action="@{'/client/CreateClient/'+${mode}}"
+                          th:object="${clientCrt}" th:method="post">
+                        <!--+${role.role}  +${role.role}-->
+                        <span style="color: #ed1c24;font-weight: bold" th:text="${msg}"></span>
+
+                        <div class="form-group">
+                            <!--<label for="inputid">Name</label>-->
+                            <input type="hidden" class="form-control" id="inputid" placeholder="Id" th:field="*{id}"
+                                   name="id"/>
+                            <!--<input type="text" class="form-control" id="inputinvtrnsName" placeholder="Inv Trns Name" th:field="*{transactionName}" name="transactionName"/>-->
+                            <span class="help-block" th:if="${#fields.hasErrors('id')}" th:errors="*{id}">User Name Error</span>
+                        </div>
+
+                        <div class="form-group required col-sm-12">
+                            <label class="col-sm-3 control-label " for="inputname">Client Name</label>
+
+                            <div class="col-sm-1 ">
+                                <b>:</b>
+                            </div>
+                            <div class="col-sm-8 ">
+                                <input class="form-control " required="required" placeholder="Client Name" type="text"
+                                       id="inputname"
+                                       th:field="*{name}" name="name"/>
+
+
+                                <span class="help-block" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Client Name Error</span>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group required col-sm-12">
+                            <label class="col-sm-3 control-label " for="inputname">First Name</label>
+
+                            <div class="col-sm-1 ">
+                                <b>:</b>
+                            </div>
+                            <div class="col-sm-8 ">
+                                <input class="form-control " required="required" placeholder="First Name" type="text"
+                                       id="inputname"
+                                       th:field="*{firstName}" name="name"/>
+
+
+                                <span class="help-block" th:if="${#fields.hasErrors('name')}" th:errors="*{firstName}">Client Name Error</span>
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group required col-sm-12">
+                            <label class="col-sm-3 control-label " for="inputaddress">Last Name</label>
+
+                            <div class="col-sm-1 ">
+                                <b>:</b>
+                            </div>
+
+                            <div class="col-sm-8 ">
+                                <input class="form-control " required="required" placeholder="Last Name" type="text"
+                                       id="inputaddress"
+                                       th:field="*{lastName}" name="lastname"/>
+                                <span class="help-block" th:if="${#fields.hasErrors('address')}"
+                                      th:errors="*{lastName}">Address Error</span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group required col-sm-12">
+                            <label class="col-sm-3 control-label " for="inputaddress">Address</label>
+
+                            <div class="col-sm-1 ">
+                                <b>:</b>
+                            </div>
+                            <div class="col-sm-8 ">
+                                <input class="form-control " required="required" placeholder="Address" type="text"
+                                       id="inputaddress"
+                                       th:field="*{address}" name="address"/>
+                                <span class="help-block" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Address Error</span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group required col-sm-12">
+                            <label class="col-sm-3 control-label " for="inputphNumber">Phone Number</label>
+
+                            <div class="col-sm-1 ">
+                                <b>:</b>
+                            </div>
+                            <div class="col-sm-8 ">
+                                <input class="form-control " required="required" placeholder="Phone Number" type="text"
+                                       id="inputphNumber"
+                                       th:field="*{phone}" name="phone"/>
+                                <span class="help-block" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">phNumber Error</span>
+                            </div>
+                        </div>
+                        <div class="form-group required col-sm-12">
+                            <label class="col-sm-3 control-label " for="inputppoe">PPOE </label>
+
+                            <div class="col-sm-1 ">
+                                <b>:</b>
+                            </div>
+                            <div class="col-sm-8 ">
+                                <select class="form-control " required="required"  id="inputppoe" th:field="*{interfaceLine.id}">
+                                    <option value="">??</option>
+                                    <option th:each="x : ${pppoes}" th:text="${x.ppoe}+'-'+${x.profile}" th:value="${x.id}"></option>
+                                </select>
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="form-group required col-sm-12">
+                            <label class="col-sm-3 control-label " for="inputamount">Amount </label>
+
+                            <div class="col-sm-1 ">
+                                <b>:</b>
+                            </div>
+                            <div class="col-sm-8 ">
+                                <input class="form-control " required="required" placeholder="Amount TK" type="text"
+                                       id="inputamount"
+                                       th:field="*{amount}" name="amount"/>
+                                <span class="help-block" th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}">Bill Day</span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group required col-sm-12">
+                            <label class="col-sm-3 control-label " for="inputppoe">Bll Day </label>
+
+                            <div class="col-sm-1 ">
+                                <b>:</b>
+                            </div>
+                            <div class="col-sm-8 ">
+                                <input class="form-control " required="required" placeholder="Day" type="text"
+                                       id="inputday"
+                                       th:field="*{billCycleDate}" name="billCycleDate"/>
+                                <span class="help-block" th:if="${#fields.hasErrors('billCycleDate')}"
+                                      th:errors="*{billCycleDate}">Bill Day</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group required col-sm-12">
+                            <label class="col-sm-3 control-label " for="inputsmsTemplate">SmS Template</label>
+
+                            <div class="col-sm-1 ">
+                                <b>:</b>
+                            </div>
+                            <div class="col-sm-8">
+                                <select class="form-control"  id="inputsmsTemplate"
+                                        th:field="*{smsTemplate}" name="smsTemplate">
+                                    <option value="">Please select One</option>
+                                    <option th:each="module : ${smsTemp}" th:text="${module.name}"
+                                            th:value="${module.id}"></option>
+
+                                </select>
+                            </div>
+                            <!--<div class="col-sm-8 ">-->
+                            <!--<input class="form-control " required="required"  placeholder="Day" type="text" id="inputday"-->
+                            <!--th:field="*{billCycleDate}" name="billCycleDate"/>-->
+                            <!--<span class="help-block" th:if="${#fields.hasErrors('billCycleDate')}" th:errors="*{billCycleDate}">Bill Day</span>-->
+                            <!--</div>-->
+                        </div>
+
+                        <div class="form-group required col-sm-12">
+                            <label class="col-sm-3 control-label " for="inputrcvSms">SMS?</label>
+
+                            <div class="col-sm-1 ">
+                                <b>:</b>
+                            </div>
+                            <div class="col-sm-8 ">
+
+                                <select class="form-control" id="inputrcvSms" name="rcvSms" th:field="*{rcvSms}">
+
+                                    <option th:text="Yes" value="1">Yes</option>
+                                    <option th:text="No" value="0">No</option>
+
+
+                                </select>
+
+
+                                <span class="help-block" th:if="${#fields.hasErrors('active')}" th:errors="*{active}">phNumber Error</span>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group required col-sm-12">
+                            <label class="col-sm-3 control-label " for="inputactive">Status</label>
+
+                            <div class="col-sm-1 ">
+                                <b>:</b>
+                            </div>
+                            <div class="col-sm-8 ">
+
+                                <select class="form-control" id="inputactive" name="active" th:field="*{active}">
+
+                                    <option value="">Please Select One</option>
+                                    <option th:text="Active" value="1">Active</option>
+                                    <option th:text="Inactive" value="0">Inactive</option>
+
+
+                                </select>
+
+
+                                <span class="help-block" th:if="${#fields.hasErrors('active')}" th:errors="*{active}">phNumber Error</span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <!--<label for="inputid">Name</label>-->
+                            <input type="hidden" class="form-control" id="inputcolumn" placeholder="column"
+                                   th:field="*{column.createdBy}" name="column"/>
+                            <!--<input type="text" class="form-control" id="inputinvtrnsName" placeholder="Inv Trns Name" th:field="*{transactionName}" name="transactionName"/>-->
+                            <span class="help-block" th:if="${#fields.hasErrors('column.createdBy')}"
+                                  th:errors="*{column.createdBy}">User Name Error</span>
+                        </div>
+
+                        <div class="form-group">
+
+                            <input type="hidden" class="form-control" id="inputcolumnDate" placeholder="columnDate"
+                                   th:field="*{column.creationDate}" name="columnDate"/>
+
+                            <span class="help-block" th:if="${#fields.hasErrors('column.creationDate')}"
+                                  th:errors="*{column.creationDate}">User Name Error</span>
+                        </div>
+
+                        <div class="form-group">
+
+
+                            <input type="hidden" class="form-control" id="interfaceLine" placeholder="interfaceLine"
+                                   th:field="*{interfaceLine.id}" name="interfaceLine"/>
+
+                            <span class="help-block" th:if="${#fields.hasErrors('interfaceLine.id')}"
+                                  th:errors="*{interfaceLine.id}">User Name Error</span>
+                        </div>
+
+
+                        <div class="text-right col-sm-12 Padding10px" align="right">
+
+                            <a th:href="@{'/clent/GetAll'}" class="btn btn-default">Cancel</a>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+
+
+                    </form>
+
+                    <!--<table class="table table-bordered table-hover table-striped">-->
+                    <!--<thead>-->
+                    <!--<tr>-->
+                    <!--<th>Client Name</th>-->
+                    <!--<th>Address</th>-->
+                    <!--<th>Phone Number</th>-->
+                    <!--<th>Status</th>-->
+                    <!--<th>Client Type</th>-->
+                    <!--<th>Action</th>-->
+                    <!--</tr>-->
+                    <!--</thead>-->
+                    <!--<tbody>-->
+                    <!--<div th:if="!${#lists.isEmpty(AllClient)}">-->
+                    <!--<tr th:each="client : ${AllClient}">-->
+                    <!--<td th:text="*{client.name}"></td>-->
+                    <!--<td th:text="*{client.address}"></td>-->
+                    <!--<td th:text="*{client.phNumber}"></td>-->
+                    <!--<td th:text="*{client.status}"></td>-->
+                    <!--<td th:text="*{client.type}"></td>-->
+
+                    <!--<td>-->
+                    <!--&lt;!&ndash;<a th:href="@{'/invsetup/invview/' +${invs.invOrganizationId}}" class="btn btn-info"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>&ndash;&gt;-->
+                    <!--<div class="btn-group" role="group" aria-label="...">-->
+                    <!--<a th:href="@{'/ServicePoint/clientEdit/U/'+ ${client.id}}"-->
+                    <!--class="btn btn-success"><span-->
+                    <!--class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>-->
+
+                    <!--</div>-->
+                    <!--</td>-->
+
+                    <!--</tr>-->
+                    <!--</div>-->
+                    <!--<div th:if="${#lists.isEmpty(AllClient)}">-->
+                    <!--<tr>-->
+                    <!--<td>No Client exists!</td>-->
+                    <!--</tr>-->
+                    <!--</div>-->
+
+
+                    <!--</tbody>-->
+
+
+                    <!--</table>-->
+
+
+                </div>
+                <div class="panel-footer">
+                </div>
+            </div>
+            <!--</div>-->
+        </div>
+    </div>
+</div>
+<!--/*/ <th:block th:include="fragments/js :: body"></th:block> /*/-->
+<script src="../static/js/app.js" th:src="@{/js/app.js}"></script>
+</body>
+</html>

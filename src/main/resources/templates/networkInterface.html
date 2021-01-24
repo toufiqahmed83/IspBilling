@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="en"
+      layout:decorator="fragments/layout">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="keywords" content="Software, Isp Billing, SMS Notification, Notification Log, Mikrotik manage,
+     Mikrotik Api,PPPOE activation/deactivation Custom SMS, Cisco,Spring, JPA, Bootstrap" >
+    <meta name="Description" content="Well orginized ISP billing software, you can easily configure your routers to mange your clients,
+     can send SMS notification for bill.
+     Finally this software can mange your valuable clinets due">
+    <title>Network Interface</title>
+
+
+    <link th:href="@{/css/easyAutocomplete/easy-autocomplete.min.css}" rel="stylesheet"/>
+
+    <script th:src="@{/js/easyAutocomplete/autocomplete.js}"></script>
+    <script th:src="@{/js/easyAutocomplete/jquery.easy-autocomplete.min.js}"></script>
+    <script>
+
+        function selectedobj(value, ind) {
+            if (ind == 'codecombination') {
+                //alert('m');
+
+                sourcedobj(value);
+            }
+            else if (ind == 'source') {
+                //alert('O');
+                sourcedobjSource(value);
+                // alert('O'+value);
+            }
+
+
+        }
+        ;
+
+
+    </script>
+
+</head>
+<body>
+<div class="right_col" role="main" data-layout-fragment="content">
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <!--<div class="container">-->
+            <div class="panel panel-primary">
+
+                <div class="panel-heading">
+                    Network Imterface Configure
+                </div>
+
+                <!-- Default panel contents -->
+                <!--<div class="form-group col-sm-12  jepg_cust_head">-->
+                <!--<div class="form-group col-sm-5 " style="padding-left: 0; color: #172D44">Network Interface</div>-->
+                <!--<div class="form-group col-sm-7 text-right Padding10px" style=" font-size: 12px;" align="right">-->
+                <!--<form th:action="@{'/Interface/AddGlHeader/'+${mode}+'/'+${pageId}+'/'+${temltId}}"-->
+                <!--th:method="post" th:target="_blank"-->
+                <!--th:if="${glHeader.status!=T(com.aye.web.model.account.common.GlStatus).N}">-->
+                <!--<button target="_blank" type="submit" name="rpt" th:value="'Journal_voucher :'+${glHeader.id}" class="btn btn-primary" align="center">-->
+                <!--<span class="glyphicon glyphicon-print"></span> Print-->
+
+                <!--</button>-->
+                <!--&lt;!&ndash;<a   th:href="@{/AccGL/AddGlHeader/U/}+${pageId}+'/'+${temltId}"  target="_blank" type="submit" name="rpt" th:value="'Journal_voucher :'+${glHeader.id}" class="btn btn-primary" align="center">Print Voucher</a>&ndash;&gt;-->
+                <!--</form>-->
+                <!--</div>-->
+                <!--</div>-->
+                <div class="panel-body">
+                    <!--<form th:action="@{'/AccGL/AddGlHeader/'+${mode}+'/'+${pageId}+'/'+${temltId}}"-->
+                    <!--th:method="post" th:target="_blank"-->
+                    <!--th:if="${glHeader.status!=T(com.aye.web.model.account.common.GlStatus).N}">-->
+                    <!--<button target="_blank" type="submit" name="rpt" th:value="'Journal_voucher :'+${glHeader.id}" class="btn btn-primary" align="center">Print Voucher</button>-->
+                    <!--&lt;!&ndash;<a   th:href="@{/AccGL/AddGlHeader/U/}+${pageId}+'/'+${temltId}"  target="_blank" type="submit" name="rpt" th:value="'Journal_voucher :'+${glHeader.id}" class="btn btn-primary" align="center">Print Voucher</a>&ndash;&gt;-->
+                    <!--</form>-->
+                    <form th:action="@{'/Interface/interface/'+${mode}}"
+                          th:object="${interfaceheader}" th:method="post">
+                        <!--<button type="submit" name="rpt" th:value="Journal_voucher" class="btn btn-primary">Voucher</button>-->
+
+                        <span style="color: #ed1c24;font-weight: bold" th:each="m :${msg}"><p
+                                th:text="${m.tag+' '+m.msg}"></p></span>
+
+                        <div class="form-group">
+                            <!--<label for="inputSegment1">Name</label>-->
+                            <input type="hidden" class="form-control" id="inputid" placeholder="id"
+                                   th:field="*{id}" name="id"/>
+                            <span class="help-block" th:if="${#fields.hasErrors('id')}"
+                                  th:errors="*{id}">Name Error</span>
+                        </div>
+
+
+                        <div class="form-group col-sm-12">
+
+                            <label class="col-sm-3 control-label " for="inputtype">Interface Type</label>
+
+                            <div class="col-sm-1 ">
+                                <b>:</b>
+                            </div>
+                            <div class="col-sm-4 ">
+                                <select class="form-control" type="text" id="inputtype"
+                                        th:field="*{type}" name="type">
+                                    <option value="">Select Interface Type</option>
+                                    <option th:each="catagories : ${T(com.isp.billing.model.networkConf.InterfaceHeader.InterfaceType).values()}"
+                                            th:text="${catagories}"
+                                            th:value="${catagories}"></option>
+                                </select>
+                                <span class="help-block" th:if="${#fields.hasErrors('type')}"
+                                      th:errors="*{type}">Name Error</span>
+                            </div>
+
+                            <div class="col-sm-4 ">
+                                <input class="form-control" type="Text" id="inputname"
+                                       th:value="*{name}" th:field="*{name}" name="name" placeholder="Name"/>
+                                <span class="help-block" th:if="${#fields.hasErrors('name')}"
+                                      th:errors="*{name}">Status Error</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group required col-sm-12">
+
+                            <label class="col-sm-3 control-label " for="inputipAddress">Interface IP</label>
+
+                            <div class="col-sm-1 ">
+                                <b>:</b>
+                            </div>
+
+                            <div class="col-sm-8 ">
+                                <input class="form-control" required="required" type="text" id="inputipAddress"
+                                       th:field="*{ipAddress}" name="ipAddress" value="10.0.2.15"/>
+
+                                <span class="help-block" th:if="${#fields.hasErrors('ipAddress')}"
+                                      th:errors="*{ipAddress}">Category Error</span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group required col-sm-12">
+                            <label class="col-sm-3 control-label " for="inputinterFaceUserName">User Name &
+                                Password</label>
+
+                            <div class="col-sm-1 ">
+                                <b>:</b>
+                            </div>
+                            <div class="col-sm-4 ">
+                                <input class="form-control" name="interFaceUserName" id="inputinterFaceUserName"
+                                       th:field="*{interFaceUserName}"/>
+
+
+                                <span class="help-block" th:if="${#fields.hasErrors('interFaceUserName')}"
+                                      th:errors="*{interFaceUserName}">Currency Error</span>
+                            </div>
+
+                            <div class="col-sm-4 input-group">
+                                <input type="password" class="form-control pwd" name="interFacePass"
+                                       id="inputinterFacePass" th:value="*{interFacePass}"/>
+          <span class="input-group-btn">
+            <button class="btn btn-default reveal" type="button"><i class="glyphicon glyphicon-eye-open"></i></button>
+          </span>
+                            </div>
+                            <script th:inline="javascript">
+                                $(".reveal").on('click', function () {
+                                    var $pwd = $(".pwd");
+                                    if ($pwd.attr('type') == 'password') {
+                                        $pwd.attr('type', 'text');
+                                    } else {
+                                        $pwd.attr('type', 'password');
+                                    }
+                                });
+                            </script>
+
+
+                        </div>
+
+
+                        <div class="form-group required col-sm-12">
+                            <label class="col-sm-3 control-label " for="inputinterFaecStatus">Status</label>
+
+                            <div class="col-sm-1 ">
+                                <b>:</b>
+                            </div>
+
+                            <div class="col-sm-4  ">
+                                <select class="td form-control " th:type="text" th:field="*{interFaecStatus}" th:id="inputinterFaecStatus">
+                                    <option value="1"> Active</option>
+                                    <option value="0"> Inactive</option>
+
+                                </select>
+                                <!--<input class="form-control" type="text" id="inputinterFaecStatus"-->
+                                <!--th:field="*{interFaecStatus}"-->
+                                <!--name="Status" />-->
+
+                                <span class="help-block" th:if="${#fields.hasErrors('interFaecStatus')}"
+                                      th:errors="*{interFaecStatus}">Date Error</span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group ">
+                            <!--<label for="inputid">Name</label>-->
+                            <input type="hidden" class="form-control" id="inputcolumn" placeholder="column"
+                                   th:field="*{column.createdBy}" name="column"/>
+                            <!--<input type="text" class="form-control" id="inputinvtrnsName" placeholder="Inv Trns Name" th:field="*{transactionName}" name="transactionName"/>-->
+                                <span class="help-block" th:if="${#fields.hasErrors('column.createdBy')}"
+                                      th:errors="*{column.createdBy}">User Name Error</span>
+                        </div>
+
+                        <div class="form-group">
+                            <!--<label for="inputid">Name</label>-->
+                            <input type="hidden" class="form-control" id="inputcolumnDate" placeholder="columnDate"
+                                   th:field="*{column.creationDate}" name="columnDate"/>
+                            <!--<input type="text" class="form-control" id="inputinvtrnsName" placeholder="Inv Trns Name" th:field="*{transactionName}" name="transactionName"/>-->
+                                <span class="help-block" th:if="${#fields.hasErrors('column.creationDate')}"
+                                      th:errors="*{column.creationDate}">User Name Error</span>
+                        </div>
+
+
+                        <div class="form-group  col-sm-12 text-right Padding10px">
+                            <a th:href="@{/Interface/interface/E}"
+                               class="btn btn-default">New</a>
+                            <!--<a th:href="@{'/Interface/ping/'+${interfaceheader.id}}"-->
+                            <!--class="btn btn-default">Ping</a>-->
+                            <button type="submit" name="add" class="btn btn-primary">Save</button>
+                            <a th:href="@{/Interface/search}"
+                               class="btn btn-default">Search</a>
+
+
+                        </div>
+
+
+                        <!--<form th:action="@{'/AccGL/AddLine/'+${mode}+'/'+${pageId}+'/'+${temltId}+'/'+${glHeader.id}}"-->
+                        <!--th:object="${glHeader}" action="post">-->
+                        <form class="form-horizontal">
+                            <div class=" col-sm-12  dist_view"
+                                 th:if="${(interfaceheader.id)!=null}">
+
+
+                                <div class="col-sm-12 brder accgl-col">
+                                    <div class="col-sm-1 accgl-col brderright" style="width: 20px">Id</div>
+                                    <div class="col-sm-3 accgl-col brderright" align="center">PPPOE</div>
+                                    <div class="col-sm-1 accgl-col brderright" align="center">Bandwidth</div>
+                                    <div class="col-sm-2 accgl-col brderright " align="center">Start</div>
+                                    <div class="col-sm-2 accgl-col brderright " align="center">End</div>
+                                    <div class="col-sm-2 accgl-col brderright" align="center">Status</div>
+                                    <div class="col-sm-1 accgl-col " align="center">Action</div>
+
+                                </div>
+                                <div class="col-sm-12 accgl-col brder "
+                                     th:each="InterfaceLine,rowStat  : *{interfaceLines}">
+
+                                    <div class="col-sm-1  accgl-col high_control top_marg brderright"
+                                         th:text="${rowStat.index}" style="width: 20px">1
+                                    </div>
+
+                                    <div class="col-sm-3   accgl-col top_marg brderright">
+
+                                        <input class="td form-control " th:type="text" required="required"
+                                               th:field="*{interfaceLines[__${rowStat.index}__].ppoe}"/>
+
+                                        <input class="td form-control " th:type="hidden"
+                                               th:field="*{interfaceLines[__${rowStat.index}__].ppoeId}"/>
+
+                                        <input class="td form-control " th:type="hidden"
+                                               th:field="*{interfaceLines[__${rowStat.index}__].id}"/>
+
+                                    </div>
+
+
+                                    <div class="col-sm-1   accgl-col top_marg brderright">
+
+                                        <input class="td form-control " th:type="text"
+                                               th:field="*{interfaceLines[__${rowStat.index}__].profile}"/>
+
+                                    </div>
+
+                                    <div class="col-sm-2 form-group accgl-col top_marg brderright">
+                                        <input class="td form-control datepicker" type="date" value="01-01-19"
+                                               th:id="*{interfaceLines[__${rowStat.index}__].startDates}"
+                                               th:field="*{{interfaceLines[__${rowStat.index}__].startDates}}"
+                                               height="2"/>
+                                    </div>
+
+                                    <div class="col-sm-2 form-group accgl-col top_marg brderright">
+                                        <input class="td form-control " type="date" value="01-01-19"
+                                               th:id="*{interfaceLines[__${rowStat.index}__].endDates}"
+                                               th:field="*{{interfaceLines[__${rowStat.index}__].endDates}}"
+                                               height="2"/>
+                                    </div>
+
+
+                                    <div class="col-sm-2 form-group accgl-col top_marg brderright">
+                                        <select class="td form-control " th:type="date" value="01-01-19"
+                                                th:id="*{interfaceLines[__${rowStat.index}__].lineStatus}">
+                                            <option value="1"> Active</option>
+                                            <option value="0"> Inactive</option>
+
+                                        </select>
+
+                                        <input class="td form-control " th:type="hidden"
+                                               th:field="*{interfaceLines[__${rowStat.index}__].column.createdBy}"
+                                               height="2"/>
+                                        <input class="td form-control " th:type="hidden"
+                                               th:field="*{interfaceLines[__${rowStat.index}__].column.creationDate}"
+                                               height="2"/>
+
+
+                                    </div>
+
+                                    <div class="col-sm-1 form-group accgl-col " align="center"
+                                         style="text-align: center ">
+                                        <button class="btn-danger" type="submit" name="removeRow"
+                                                th:value="${rowStat.index}" style="font-size: 10px; margin-top: 4px;">
+                                            Remove
+
+                                        </button>
+                                    </div>
+
+
+                                </div>
+
+
+                                <div class="col-sm-12 brder btn_padd" align="right">
+                                    <button type="submit" th:name="addRow" class="btn btn-primary ">Add Row
+                                    </button>
+                                    <button type="submit" th:name="getFromDevice" class="btn btn-primary ">Get From
+                                        Device
+                                    </button>
+                                    <button type="submit" name="saveDetail" class="btn btn-success"
+                                            align="right">Save Lines
+                                    </button>
+                                    <button type="submit" th:name="post" class="btn btn-primary" align="right">
+                                        Post
+                                    </button>
+
+
+                                </div>
+
+
+                            </div>
+                        </form>
+                        <div>
+
+                            <div th:if="${(interfaceheader.id)==null}">
+                                <!--<span th:text="nop"></span>-->
+
+                            </div>
+
+                        </div>
+
+
+                    </form>
+
+                </div>
+                <div class="panel-footer">
+                </div>
+            </div>
+            <!--</div>-->
+        </div>
+    </div>
+</div>
+<!--/*/ <th:block th:include="fragments/js :: body"></th:block> /*/-->
+<script src="../static/js/app.js" th:src="@{/js/app.js}"></script>
+</body>
+</html>

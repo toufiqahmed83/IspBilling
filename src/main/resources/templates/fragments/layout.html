@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <script th:src="@{/js/jquery-1.11.2.min.js}"></script>
+    <!--<title data-layout-title-pattern="$LAYOUT_TITLE | $CONTENT_TITLE">IT ref!</title>-->
+
+    <title layout:title-pattern="$DECORATOR_TITLE - $CONTENT_TITLE">AYE</title>
+    <!-- Bootstrap -->
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+    <!-- Font Awesome -->
+    <link th:href="@{/webjars/font-awesome/css/font-awesome.min.css}" rel="stylesheet"/>
+    <!-- NProgress -->
+    <link th:href="@{/webjars/nprogress/nprogress.css}" rel="stylesheet"/>
+
+    <!-- Custom Theme Style -->
+    <!--<link th:href="@{/css/custom.min.css}" rel="stylesheet"/>-->
+    <link th:href="@{/css/common.css}" rel="stylesheet"/>
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a  href="'/main" th:href="@{/main}"
+                        class="site_title"><i class="fa fa-paw"></i> <span>!!!!!</span></a>
+                    <!--href="/main"-->
+
+                </div>
+
+                <div class="clearfix"></div>
+
+                <!-- menu profile quick info -->
+            <!--     <div data-th-replace="fragments/fragment-menu-profile-quick-info :: menu-profile-quick-info"></div> -->
+                <!-- /menu profile quick info -->
+
+                <br/>
+
+                <!-- sidebar menu -->
+                <div data-th-replace="fragments/fragment-sidebar-menu :: sidebar-menu"></div>
+                <!-- /sidebar menu -->
+
+                <!-- /menu footer buttons -->
+                <div data-th-replace="fragments/fragment-menu-footer-buttons :: menu-footer-buttons"></div>
+                <!-- /menu footer buttons -->
+
+            </div>
+        </div>
+
+        <!-- top navigation -->
+        <div data-th-replace="fragments/fragment-top-navigation :: top-navigation"></div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div data-layout-fragment="content"></div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <div data-th-replace="fragments/fragment-footer-content :: footer-content"></div>
+        <!-- /footer content -->
+    </div>
+
+</div>
+
+<!-- jQuery -->
+<!--<script th:src="@{/webjars/jquery/jquery.min.js}"></script>-->
+
+<!-- Bootstrap -->
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<!-- FastClick -->
+<script th:src="@{/webjars/fastclick/fastclick.js}"></script>
+<!-- NProgress -->
+<script th:src="@{/webjars/nprogress/nprogress.js}"></script>
+
+<!-- Custom Theme Scripts -->
+<script th:src="@{/js/custom.min.js}"></script>
+<script th:src="@{/js/moment.js}"></script>
+</body>
+</html>

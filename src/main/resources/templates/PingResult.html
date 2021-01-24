@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+</head>
+<body>
+<div id="resultsList" th:fragment="resultsList" class="resultsList">
+    <div class="form-group col-sm-12">
+        <div th:unless="${#lists.isEmpty(pingResults)}">
+            <table class="table table-bordered table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Result</th>
+                </tr>
+
+                </thead>
+                <tbody>
+                <tr th:each="p ,iStat : ${pingResults}">
+
+                    <td th:text="${iStat.count}">Id</td>
+                    <td th:text="${p}"></td>
+                </tr>
+                </tbody>
+
+            </table>
+            <div>
+                </div>
+
+            </div>
+
+        </div>
+        <div th:if="${#lists.isEmpty(pingResults)}">
+            <!--<span><a th:text="${msg}"></a></span>-->
+            <span style="color: #ed1c24;font-weight: bold" th:text="${msg}"></span>
+
+        </div>
+
+
+    </div>
+
+
+
+</div>
+</body>
+</html>

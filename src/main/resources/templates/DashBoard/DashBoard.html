@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" lang="en"
+      layout:decorator="fragments/layout">
+<head>
+</head>
+<body>
+<div class="right_col" role="main" data-layout-fragment="content">
+
+    <section class="col-lg-11">
+
+        <!-- Map box -->
+        <div class="box box-solid bg-light-blue-gradient" style="height:200px">
+            <div class="box-header">
+                <a class="box-title">Network Status
+                    <i class="fa fa-server"></i>
+                </a>
+
+            </div>
+            <div class="box-footer no-border">
+                <div class="row">
+                    <div id="replace_div">
+                        <script th:inline="javascript">
+                            $(document).ready(function(){
+                                DBCallInterFace();
+                                setInterval(function() {
+
+                                    {
+                                        DBCallInterFace();
+                                    }}, 20000);
+
+                            });
+
+                            function DBCallInterFace(){
+                                l_urlVal='/ISPB/Dashboard/InterFaceHeader';
+                                var l_url=window.location.origin+l_urlVal;
+                                $('#replace_div').load(l_url);
+                            };
+
+                        </script>
+                    </div>
+                    </div>
+                </div>
+        </div>
+        <div class="box box-solid bg-light-blue-gradient" style="height:200px">
+            <div class="box-header">
+                <span style="height: 100%">Based on  <a th:text= "${#calendars.format(#calendars.createNow(), 'dd MMM yyyy HH:mm')}"></a> </span>
+
+            </div>
+            <div class="box-footer no-border">
+                <div class="row">
+                    <div id="replace_divc">
+                        <script th:inline="javascript">
+                            $(document).ready(function(){
+                                DBCallClient();
+                                setInterval(function() {
+
+                                    {
+                                        DBCallClient();
+                                    }}, 20000);
+
+                            });
+
+                            function DBCallClient(){
+                                l_urlValC='/ISPB/Dashboard/ClientInfos';
+                                var l_urlc=window.location.origin+l_urlValC;
+                                $('#replace_divc').load(l_urlc);
+                            };
+
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- /.box -->
+
+        <!-- solid sales graph -->
+        <!--<div class="box box-solid bg-teal-gradient">-->
+            <!--<div class="box-header">-->
+                <!--<i class="fa fa-th"></i>-->
+
+                <!--<h3 class="box-title">Sales Graph</h3>-->
+
+                <!--<div class="box-tools pull-right">-->
+                    <!--<button type="button" class="btn bg-teal btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>-->
+                    <!--</button>-->
+                    <!--<button type="button" class="btn bg-teal btn-sm" data-widget="remove"><i class="fa fa-times"></i>-->
+                    <!--</button>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="box-body border-radius-none">-->
+                <!--<div class="chart" id="line-chart" style="height: 250px;"></div>-->
+            <!--</div>-->
+            <!--&lt;!&ndash; /.box-body &ndash;&gt;-->
+            <!--<div class="box-footer no-border">-->
+                <!--<div class="row">-->
+                    <!--<div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">-->
+                        <!--<input type="text" class="knob" data-readonly="true" value="20" data-width="60" data-height="60" data-fgColor="#39CCCC"/>-->
+
+                        <!--<div class="knob-label">Mail-Orders</div>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; ./col &ndash;&gt;-->
+                    <!--<div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">-->
+                        <!--<input type="text" class="knob" data-readonly="true" value="50" data-width="60" data-height="60" data-fgColor="#39CCCC"/>-->
+
+                        <!--<div class="knob-label">Online</div>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; ./col &ndash;&gt;-->
+                    <!--<div class="col-xs-4 text-center">-->
+                        <!--<input type="text" class="knob" data-readonly="true" value="30" data-width="60" data-height="60" data-fgColor="#39CCCC"/>-->
+
+                        <!--<div class="knob-label">In-Store</div>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; ./col &ndash;&gt;-->
+                <!--</div>-->
+                <!--&lt;!&ndash; /.row &ndash;&gt;-->
+            <!--</div>-->
+            <!--&lt;!&ndash; /.box-footer &ndash;&gt;-->
+        <!--</div>-->
+        <!-- /.box -->
+
+    </section>
+
+</div>
+
+
+</body>
+</html>

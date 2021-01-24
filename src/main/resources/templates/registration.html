@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Registration</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}"/>
+
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+    <!-- Font Awesome -->
+    <link th:href="@{/webjars/font-awesome/css/font-awesome.min.css}" rel="stylesheet"/>
+</head>
+<body>
+<div class="container">
+    <div class="row main">
+        <div class="panel-heading">
+            <div class="panel-title text-center">
+                <!--<h1 class="title">OITH</h1>-->
+                <h2 class="form-signin-heading">Create your account</h2>
+                <hr/>
+            </div>
+        </div>
+        <div class="main-login main-center">
+
+            <form th:action="@{/registration}" method="POST" modelAttribute="userForm" class="form-signin">
+
+                <div align="center" th:if="${param.logout}">
+                    <p style="font-size: 20; color: #00FF00;">Successfully log out</p>
+                </div>
+                <div class="form-group">
+                    <label for="username" class="cols-sm-2 control-label">Username</label>
+
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="username" id="username" placeholder="Enter your Username"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="cols-sm-2 control-label">Password</label>
+
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Enter your Password"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="passwordConfirm" class="cols-sm-2 control-label">passwordConfirm</label>
+
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            <input type="password" class="form-control" name="passwordConfirm" id="passwordConfirm" placeholder="Enter your Password Again"/>
+                        </div>
+                    </div>
+                </div>
+
+
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+<!-- jQuery -->
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<!-- Bootstrap -->
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>

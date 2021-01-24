@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div id="sidebar-menu" class="main_menu_side hidden-print main_menu"
+     data-th-fragment="sidebar-menu">
+    <div class="menu_section">
+        <h3>General</h3>
+
+
+        <!--<ul class="nav side-menu" th:object="${manus}">-->
+            <!--<li th:each="accDtl : ${manus}">-->
+
+            <!--<li th:each="Sm : ${accDtl.userMenu}" >-->
+
+                <!--<a>-->
+                    <!--<i th:classappend="${Sm.icon}"> </i> <span th:text="${Sm.menuName}"></span>-->
+                    <!--<span class="fa fa-chevron-down"></span></a>-->
+
+
+                <!--&lt;!&ndash;<div th:if="${Sm.menuType.name()=='MENU'}">&ndash;&gt;-->
+                    <!--<ul class="nav child_menu">-->
+                        <!--<li th:each="Smn : ${Sm.subMenus}"><a-->
+                                <!--th:href="@{'/' + ${Smn.pageName}+'/'+${Smn.userMenu.id}}+'/'+${accDtl.id}"> <span-->
+                                <!--th:text="${Smn.menuName}"></span></a></li>-->
+
+                        <!--<li th:each="Sm : ${accDtl.requestGroupHeader}">-->
+                            <!--<a>-->
+                                <!--<span th:text="Reports"></span>-->
+                                <!--<span class="fa fa-chevron-down"></span></a>-->
+                            <!--<ul class="nav child_menu">-->
+                                <!--<li th:each="ReqGrpL : ${Sm.requestGroupLines}">-->
+                                <!--<li th:each="Smn : ${ReqGrpL.executables}">-->
+                                    <!--<a th:href="@{'/' + ${Smn.execPath}+'/'+${Smn.outpuType}+'/'+${Smn.id}}">-->
+                                        <!--<span th:text="${Smn.name}"></span></a>-->
+                                <!--</li>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+            <!--</li>-->
+
+
+        <!--</ul>-->
+
+
+    <!--</div>-->
+
+
+    <!-- +'/'+${Smn.userMenu.id}-->
+    </li>
+    </li>
+
+    </ul>
+    <!--<script>-->
+        <!--function al(v) {-->
+            <!--var y = v;-->
+<!--//           alert(y);-->
+
+            <!--var l_url = window.location.origin;-->
+
+
+            <!--$.ajax({-->
+<!--//               type: 'GET',-->
+                <!--url: l_url + "/AYE/setRpt/" + y-->
+<!--//               contentType: '',-->
+<!--//               crossDomain: false,-->
+<!--//               async:true-->
+
+            <!--});-->
+
+        <!--}-->
+        <!--;-->
+    <!--</script>-->
+        <ul class="nav side-menu">
+
+        <li><a><i class="fa fa-user"></i> Client <span class="fa fa-chevron-down"></span></a>
+        <ul class="nav child_menu">
+        <!--<li><a th:href="@{/contacts}">Contact Info</a></li>-->
+        <li><a th:href="@{/client/GetAll}">Client Info</a></li>
+        <li><a th:href="@{/sms/GetAll}">Custom Messsage</a></li>
+        <li><a th:href="@{/smslog/GetAll}">Sms Log Status</a></li>
+        <li><a th:href="@{/ClientBill/getAll/0}">Billing Info.</a></li>
+        </ul>
+        </li>
+        <li><a><i class="fa fa-user"></i> Network Interface<span class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu">
+                <li><a th:href="@{/Interface/interface/E}">Network Interface</a></li>
+                <li><a th:href="@{/Interface/getPing}">Ping!!</a></li>
+                <li><a th:href="@{/Smsconfig/GetAll}">SMS Getway Configure</a></li>
+            </ul>
+        </li>
+
+
+</div>
+
+</div>
+</html>

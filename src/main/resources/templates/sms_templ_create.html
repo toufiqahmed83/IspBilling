@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="en"
+      layout:decorator="fragments/layout">
+
+<head>
+
+    <link th:href="@{/css/easyAutocomplete/easy-autocomplete.min.css}" rel="stylesheet"/>
+
+    <script th:src="@{/js/easyAutocomplete/autocomplete.js}"></script>
+    <script th:src="@{/js/easyAutocomplete/jquery.easy-autocomplete.min.js}"></script>
+</head>
+<body>
+<div class="right_col" role="main" data-layout-fragment="content">
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <!--<div class="container">-->
+            <div class="panel panel-primary">
+                <!-- Default panel contents -->
+                <div class="panel-heading">Manage Client</div>
+                <div class="panel-body">
+
+
+                    <form th:action="@{'/sms/CreateSmsTemplate/'+${mode}}"
+                          th:object="${smscart}" th:method="post">
+                        <!--+${role.role}  +${role.role}-->
+                        <!--<span style="color: #ed1c24;font-weight: bold" th:text="${msg}"  ></span>-->
+
+                        <div class="form-group">
+                            <!--<label for="inputid">Name</label>-->
+                            <input type="hidden" class="form-control" id="inputid" placeholder="Id" th:field="*{id}"
+                                   name="id"/>
+                            <!--<input type="text" class="form-control" id="inputinvtrnsName" placeholder="Inv Trns Name" th:field="*{transactionName}" name="transactionName"/>-->
+                            <span class="help-block" th:if="${#fields.hasErrors('id')}" th:errors="*{id}">User Name Error</span>
+                        </div>
+
+                        <div class="form-group required col-sm-12">
+                            <label class="col-sm-3 control-label " for="inputname">Message Identity</label>
+
+                            <div class="col-sm-1 ">
+                                <b>:</b>
+                            </div>
+                            <div class="col-sm-8 ">
+                                <input class="form-control " required="required" placeholder="Message Identity"
+                                       type="text" id="inputname"
+                                       th:field="*{name}" name="name"/>
+
+
+                                <span class="help-block" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Client Name Error</span>
+
+                            </div>
+                        </div>
+                        <div class="form-group required col-sm-12">
+                            <label class="col-sm-3 control-label " for="inputname">Message Body</label>
+
+                            <div class="col-sm-1 ">
+                                <b>:</b>
+                            </div>
+                            <div class="col-sm-8 ">
+                                <input class="form-control " required="required" placeholder="Message " type="text"
+                                       id="inputname"
+                                       th:field="*{msg}" name="name"/>
+
+
+                                <span class="help-block" th:if="${#fields.hasErrors('msg')}" th:errors="*{msg}">Client Name Error</span>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group required col-sm-12">
+                            <label class="col-sm-3 control-label " for="inputStatus">Status</label>
+
+                            <div class="col-sm-1 ">
+                                <b>:</b>
+                            </div>
+                            <div class="col-sm-8 ">
+                                <select class="form-control " required="required" id="inputStatus" th:field="*{status}" >
+                                    <option th:text="Active" value="1">Active</option>
+                                    <option th:text="Inactive" value="0">Inactive</option>
+
+                                </select>
+                                <!--<input class="form-control " required="required" placeholder="Message " type="text"-->
+                                       <!--id="inputStatus"-->
+                                       <!--th:field="*{status}" name="status"/>-->
+
+
+                                <span class="help-block" th:if="${#fields.hasErrors('status')}" th:errors="*{status}">Client Name Error</span>
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <!--<label for="inputid">Name</label>-->
+                            <input type="hidden" class="form-control" id="inputcolumn" placeholder="column"
+                                   th:field="*{column.createdBy}" name="column"/>
+                            <!--<input type="text" class="form-control" id="inputinvtrnsName" placeholder="Inv Trns Name" th:field="*{transactionName}" name="transactionName"/>-->
+                            <span class="help-block" th:if="${#fields.hasErrors('column.createdBy')}"
+                                  th:errors="*{column.createdBy}">User Name Error</span>
+                        </div>
+
+                        <div class="form-group">
+
+                            <input type="hidden" class="form-control" id="inputcolumnDate" placeholder="columnDate"
+                                   th:field="*{column.creationDate}" name="columnDate"/>
+
+                            <span class="help-block" th:if="${#fields.hasErrors('column.creationDate')}"
+                                  th:errors="*{column.creationDate}">User Name Error</span>
+                        </div>
+
+
+                        <div class="text-right col-sm-12 Padding10px" align="right">
+
+                            <a th:href="@{'/sms/GetAll'}" class="btn btn-default">Cancel</a>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+
+
+                    </form>
+
+
+                </div>
+                <div class="panel-footer">
+                </div>
+            </div>
+            <!--</div>-->
+        </div>
+    </div>
+</div>
+<!--/*/ <th:block th:include="fragments/js :: body"></th:block> /*/-->
+<script src="../static/js/app.js" th:src="@{/js/app.js}"></script>
+</body>
+</html>
